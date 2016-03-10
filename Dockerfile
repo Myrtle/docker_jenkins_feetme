@@ -43,6 +43,30 @@ RUN usermod -G root jenkins
 RUN chmod -R 775 /usr/local/bin
 RUN chmod -R 775 /var/lib/gems
 
+# Android SDK
+RUN cd /opt && wget -q https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
+RUN cd /opt && tar xzf android-sdk_r24.4.1-linux.tgz
+RUN cd /opt && rm -f android-sdk_r24.4.1-linux.tgz
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+RUN echo "y" | android update sdk --all --filter platform-tools --no-ui --force
+RUN echo "y" | android update sdk --all --filter android-23 --no-ui --force
+RUN echo "y" | android update sdk --all --filter build-tools-23.0.2 --no-ui --force
+RUN echo "y" | android update sdk --all --filter extra-android-m2repository --no-ui --force
+RUN echo "y" | android update sdk --all --filter extra-android-support --no-ui --force
+RUN echo "y" | android update sdk --all --filter extra-google-google_play_services --no-ui --force
+RUN echo "y" | android update sdk --all --filter extra-google-m2repository --no-ui --force
+
+RUN gem install calabash-android
+
+RUN apt-get install -y lib32stdc++6 lib32z1
+RUN chown -R jenkins.jenkins /opt/android-sdk-linux
+
+# JAVA 8
+RUN add-apt-repository ppa:openjdk-r/ppa
+RUN apt-get update
+RUN apt-get install -y openjdk-8-jdk
+
 RUN rm -rf /var/lib/apt/lists/*
 
 ENV ENV feature
