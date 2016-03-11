@@ -6,6 +6,8 @@ Including:
 - NodeJs
 - Jenkins
 - Selenium & Lettuce (Python)
+- Android SDK
+- Java 8
 
 ## Build
 sudo docker build -t jenkins_full_feetme .
