@@ -8,6 +8,7 @@ Including:
 - Selenium & Lettuce (Python)
 - Android SDK
 - Java 8
+- AWS CLI
 
 ## Build
 sudo docker build -t jenkins_full_feetme .
