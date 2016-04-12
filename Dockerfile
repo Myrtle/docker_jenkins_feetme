@@ -70,6 +70,9 @@ RUN apt-get install -y openjdk-8-jdk
 # AWS CLI
 RUN pip install awscli
 
+# Scipy & Numpy
+RUN apt-get install -y python-numpy python-scipy
+
 RUN rm -rf /var/lib/apt/lists/*
 
 ENV ENV feature
