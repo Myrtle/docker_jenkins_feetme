@@ -75,7 +75,7 @@ RUN apt-get install -y python-numpy python-scipy
 RUN apt-get install -y python-crypto
 
 #PyTest
-RUN apt-get install -y pytest
+RUN pip install pytest
 
 RUN rm -rf /var/lib/apt/lists/*
 
