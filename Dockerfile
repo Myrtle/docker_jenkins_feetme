@@ -72,6 +72,8 @@ RUN pip install awscli
 
 # Scipy & Numpy
 RUN apt-get install -y python-numpy python-scipy
+RUN apt-get install -y python-crypto
+
 
 RUN rm -rf /var/lib/apt/lists/*
 
