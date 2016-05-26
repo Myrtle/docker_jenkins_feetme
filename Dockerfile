@@ -9,8 +9,7 @@ RUN apt-get install -y wget curl git xvfb build-essential libavahi-compat-libdns
 RUN apt-get install -y python python-dev python-pip python-virtualenv
 
 # Nodejs
-RUN curl -sL https://deb.nodesource.com/setup_0.12 | bash -
-RUN apt-get install -y nodejs
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
 
 # Jenkins
 RUN wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -
@@ -29,19 +28,9 @@ RUN apt-get install -y chromium-browser
 
 RUN apt-get install -y patch gawk g++ gcc make libc6-dev patch libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev
 
-# Ruby
-RUN apt-add-repository ppa:brightbox/ruby-ng
-RUN apt-get update
-RUN apt-get install -y ruby2.1 ruby2.1-dev
-RUN gem install bundler
 RUN touch /var/lib/jenkins/init.feetme
 
 RUN chown -R jenkins.jenkins /var/lib/jenkins
-
-# Because I don't know how to install ruby for a specific user...
-RUN usermod -G root jenkins
-RUN chmod -R 775 /usr/local/bin
-RUN chmod -R 775 /var/lib/gems
 
 # Android SDK
 RUN cd /opt && wget -q https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
