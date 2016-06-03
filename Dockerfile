@@ -66,6 +66,9 @@ RUN apt-get install -y python-crypto
 # PyTest
 RUN pip install pytest
 
+# Nsis
+RUN apt-get install -y nsis
+
 RUN rm -rf /var/lib/apt/lists/*
 
 ENV LANG en_US.UTF-8
