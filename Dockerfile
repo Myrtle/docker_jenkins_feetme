@@ -3,13 +3,10 @@ FROM ubuntu:15.04
 RUN apt-get update
 
 # Misc libraries
-RUN apt-get install -y wget curl git xvfb build-essential libavahi-compat-libdnssd-dev libbluetooth-dev libnotify-bin software-properties-common python-software-properties
+RUN apt-get install -y wget curl git xvfb build-essential libavahi-compat-libdnssd-dev libbluetooth-dev libnotify-bin software-properties-common python-software-properties vim
 
 # Python
 RUN apt-get install -y python python-dev python-pip python-virtualenv
-
-# Nodejs
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
 
 # Jenkins
 RUN wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -
@@ -27,6 +24,9 @@ RUN pip install --upgrade six>=1.70
 RUN apt-get install -y chromium-browser
 
 RUN apt-get install -y patch gawk g++ gcc make libc6-dev patch libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev
+
+# Ruby
+RUN apt-get install -y ruby
 
 RUN touch /var/lib/jenkins/init.feetme
 
@@ -63,12 +63,15 @@ RUN pip install awscli
 RUN apt-get install -y python-numpy python-scipy
 RUN apt-get install -y python-crypto
 
-#PyTest
+# PyTest
 RUN pip install pytest
 
 RUN rm -rf /var/lib/apt/lists/*
 
+ENV LANG en_US.UTF-8
 ENV ENV feature
+# Don't seems to properly work, /etc/init.d/jenkins might need some editing
+ENV JENKINS_ARGS --prefix=/jenkins
 
 VOLUME /var/lib/jenkins
 
